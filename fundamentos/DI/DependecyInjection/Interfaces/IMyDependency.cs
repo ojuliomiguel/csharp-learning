@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DependecyInjection.Interfaces
 {
-    interface IMyDependency
+    public interface IMyDependency
     {
         Task WriteMessage(string message);
     }

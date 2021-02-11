@@ -1,3 +1,6 @@
+using DependecyInjection.Interfaces;
+using DependecyInjection.Models;
+using DependecyInjection.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +27,15 @@ namespace DependecyInjection
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddTransient<IOperationTransient, Operation>();
+            services.AddScoped<IOperationScoped, Operation>();
+            services.AddSingleton<IOperationSingleton, Operation>();
+            services.AddSingleton<IOperationSingletonInstance>(new Operation(Guid.Empty));
+
+            // OperationService depends on each of the other Operation types.
+            services.AddTransient<OperationService>();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
